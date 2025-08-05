@@ -17,7 +17,9 @@ http://localhost:3000
 - OTP-based Authentication
 - Protected Routes
 - Completed with Hero section
+- Implement the side bar
 
 ## Bug Fixes
 
 - [ ] (Add bug fixes here as you solve them)
+- solve the responsiveness of side bar
