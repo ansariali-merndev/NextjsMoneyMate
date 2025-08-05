@@ -16,6 +16,7 @@ http://localhost:3000
 
 - OTP-based Authentication
 - Protected Routes
+- Completed with Hero section
 
 ## Bug Fixes
 
