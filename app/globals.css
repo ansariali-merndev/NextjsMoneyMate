@@ -122,6 +122,6 @@
 }
 
 
-.hide ::-webkit-scrollbar {
-  display: none;
+body {
+  overflow-y: scroll;
 }
