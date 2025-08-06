@@ -20,6 +20,7 @@ http://localhost:3000
 - Implement the side bar
 - Completed with dashboard Section
 - completed to connection of categories to db
+- completed with Income and Expense Pages
 
 ## Bug Fixes
 
