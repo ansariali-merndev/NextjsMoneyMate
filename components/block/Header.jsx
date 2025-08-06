@@ -1,6 +1,5 @@
-import Image from "next/image";
-import profile from "../../assets/profile.webp";
 import { MobileAside } from "./MobileAside";
+import { Logout } from "./Logout";
 
 export const Header = () => {
   return (
@@ -12,14 +11,7 @@ export const Header = () => {
         Money Mate
       </div>
       <div className="flex gap-4 items-center">
-        <div className="w-8 h-8">
-          <Image
-            src={profile}
-            alt="Profile Images"
-            style={{ height: "auto", width: "auto" }}
-            priority={true}
-          />
-        </div>
+        <Logout />
         <MobileAside />
       </div>
     </header>
