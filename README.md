@@ -19,6 +19,7 @@ http://localhost:3000
 - Completed with Hero section
 - Implement the side bar
 - Completed with dashboard Section
+- completed to connection of categories to db
 
 ## Bug Fixes
 
