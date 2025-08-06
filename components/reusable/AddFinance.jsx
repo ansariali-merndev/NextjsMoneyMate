@@ -18,14 +18,6 @@ export const AddFinance = ({ income }) => {
     type: "",
   });
 
-  useEffect(() => {
-    const func = async () => {
-      const res = await getUserFinance(user.email);
-      console.log(res);
-    };
-    func();
-  }, []);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 

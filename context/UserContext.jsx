@@ -2,6 +2,7 @@
 
 import { getUserFinance } from "@/app/action/FinanceAction";
 import { getUserCategories, getUserDetail } from "@/app/action/GetUser";
+import { handlePostFetch } from "@/utils/constant";
 import { createContext, useContext, useEffect, useState } from "react";
 const UserContext = createContext();
 
@@ -37,6 +38,23 @@ export const UserProvider = ({ children }) => {
     };
     handleAuth();
   }, []);
+
+  useEffect(() => {
+    const func = async () => {
+      const res = await handlePostFetch("/api/get_finance", {
+        email: user.email,
+      });
+
+      if (res.success) {
+        setIncomeData(res?.data?.incomeData);
+        setExpenseData(res?.data?.expenseData);
+      }
+    };
+
+    if (user.email) {
+      func();
+    }
+  }, [user.email]);
 
   const value = {
     totalIncome,

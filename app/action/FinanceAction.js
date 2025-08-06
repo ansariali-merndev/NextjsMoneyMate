@@ -3,17 +3,7 @@
 import { connectDB } from "@/config/db";
 import { financeDB } from "@/model/FinanceModel";
 
-export async function getUserFinance(email) {
-    await connectDB();
-   console.log("Get user Finance Executed", email);
 
-   const finaceData = await financeDB.findOne({userEmail: email});
-   console.log(finaceData);
-
-   return {
-    success: finaceData ? true : false,    
-   };
-}
 
 export async function addFinanceData(email, income, finance) {
     await connectDB();
