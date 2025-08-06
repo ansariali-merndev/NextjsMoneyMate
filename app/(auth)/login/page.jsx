@@ -4,6 +4,7 @@ import { Submit } from "@/components/reusable/FormBTN";
 import { FormEmail } from "@/components/reusable/FormEmail";
 import { FormHeading } from "@/components/reusable/FormHeading";
 import { FormPassword } from "@/components/reusable/FormPassword";
+import { useUserContext } from "@/context/UserContext";
 import { handlePostFetch } from "@/utils/constant";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -13,6 +14,7 @@ export default function Login() {
   const [formdata, setFormdata] = useState({ email: "", password: "" });
   const [isPending, setIsPending] = useState(false);
   const router = useRouter();
+  const { setAuth } = useUserContext();
 
   // OnChange Handler
   const handleOnChange = (e) => {
@@ -35,7 +37,7 @@ export default function Login() {
         text: res?.message || "Check your Credential or Internal Server Error",
       });
     }
-
+    setAuth((prev) => !prev);
     router.push("/");
   };
 

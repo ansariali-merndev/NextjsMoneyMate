@@ -39,7 +39,7 @@ export default function Register() {
   const [otpModel, setOtpModel] = useState(false);
   const [email, setEmail] = useState("");
   const [resend, setResend] = useState(false);
-  const { setUser } = useUserContext();
+  const { setUser, setAuth } = useUserContext();
   const [formdata, setFormdata] = useState({
     name: "",
     email: "",
@@ -91,6 +91,8 @@ export default function Register() {
       email: res.data.email,
       isVerified: res.data.isVerified,
     });
+
+    setAuth((prev) => !prev);
     router.push("/");
   };
 

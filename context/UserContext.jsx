@@ -6,6 +6,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
+  const [auth, setAuth] = useState(false);
+  const { isLoaded, setIsLoaded } = useState(false);
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
   const [user, setUser] = useState({ name: "", email: "", isVerified: "" });
@@ -34,9 +36,10 @@ export const UserProvider = ({ children }) => {
       if (!resCategory?.success) return;
 
       setCategories(resCategory.data);
+      setIsLoaded(true);
     };
     handleAuth();
-  }, []);
+  }, [auth]);
 
   useEffect(() => {
     const func = async () => {
@@ -53,7 +56,7 @@ export const UserProvider = ({ children }) => {
     if (user.email) {
       func();
     }
-  }, [user.email]);
+  }, [user.email, auth]);
 
   useEffect(() => {
     if (expenseData.length > 0) {
@@ -62,7 +65,7 @@ export const UserProvider = ({ children }) => {
       }, 0);
       setTotalExpense(total);
     }
-  }, [expenseData]);
+  }, [expenseData, auth]);
 
   useEffect(() => {
     if (incomeData.length > 0) {
@@ -71,7 +74,7 @@ export const UserProvider = ({ children }) => {
       }, 0);
       setTotalIncome(total);
     }
-  }, [incomeData]);
+  }, [incomeData, auth]);
 
   const value = {
     totalIncome,
@@ -84,6 +87,8 @@ export const UserProvider = ({ children }) => {
     setIncomeData,
     expenseData,
     setExpenseData,
+    setAuth,
+    isLoaded,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
