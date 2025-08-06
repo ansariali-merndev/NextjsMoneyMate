@@ -5,19 +5,28 @@ import { Button } from "../ui/button";
 import EmojiPicker from "emoji-picker-react";
 import { useUserContext } from "@/context/UserContext";
 import Swal from "sweetalert2";
+import { addFinanceData, getUserFinance } from "@/app/action/FinanceAction";
 
 export const AddFinance = ({ income }) => {
   const [open, setOpen] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
   const [filter, setFilter] = useState([]);
-  const { categories, setExpenseData, setIncomeData } = useUserContext();
+  const { categories, setExpenseData, setIncomeData, user } = useUserContext();
   const [formdata, setFormdata] = useState({
     emoji: "💸",
     amount: "",
     type: "",
   });
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    const func = async () => {
+      const res = await getUserFinance(user.email);
+      console.log(res);
+    };
+    func();
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (
@@ -38,6 +47,10 @@ export const AddFinance = ({ income }) => {
       setExpenseData((prev) => [...prev, formdata]);
     }
     setOpen(false);
+
+    const res = await addFinanceData(user.email, income, formdata);
+    console.log(res);
+    setFormdata((prev) => ({ ...prev, amount: "", type: "" }));
   };
 
   useEffect(() => {

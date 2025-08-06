@@ -10,6 +10,7 @@ import {
   FaWallet,
 } from "react-icons/fa";
 import Image from "next/image";
+import { useUserContext } from "@/context/UserContext";
 
 const navItem = [
   { path: "/dashboard", label: "Dashboard", icon: <FaTachometerAlt /> },
@@ -20,6 +21,7 @@ const navItem = [
 
 export const Aside = () => {
   const pathname = usePathname();
+  const { user } = useUserContext();
 
   return (
     <>
@@ -30,7 +32,7 @@ export const Aside = () => {
           style={{ height: "30px", width: "30px" }}
           priority={true}
         />
-        <p>Ansari Ali</p>
+        <p>{user.name}</p>
       </div>
       <nav className="px-6 flex flex-col gap-6 my-8">
         {navItem.map((item, index) => (

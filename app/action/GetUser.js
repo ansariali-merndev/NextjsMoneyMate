@@ -16,7 +16,7 @@ export async function getUserCategories(email) {
     type: cat.type,
   })) || [];
 
-
+    // console.log("executed get user category");
     return {
         success: true,
         data: plainCategories,

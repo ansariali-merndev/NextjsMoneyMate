@@ -5,15 +5,14 @@ import { financeDB } from "@/model/FinanceModel";
 
 export async function getUserFinance(email) {
     await connectDB();
-    const financeData = await financeDB.findOne({userEmail: email});
+   console.log("Get user Finance Executed", email);
 
-    if(!financeData) return {success: false};
+   const finaceData = await financeDB.findOne({userEmail: email});
+   console.log(finaceData);
 
-    return {
-        success: true,
-        incomeData: financeData.incomeData,
-        expenseData: financeData.expenseData
-    };
+   return {
+    success: finaceData ? true : false,    
+   };
 }
 
 export async function addFinanceData(email, income, finance) {
@@ -29,7 +28,7 @@ export async function addFinanceData(email, income, finance) {
         })
     }
 
-    financeData[income ? incomeData : expenseData].push(finance)
+    financeData[income ? "incomeData" : "expenseData"].push(finance)
     
     await financeData.save();
 }
