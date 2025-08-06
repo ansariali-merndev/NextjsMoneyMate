@@ -5,11 +5,12 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import Swal from "sweetalert2";
 import { useUserContext } from "@/context/UserContext";
+import { AddCategories } from "@/app/action/AddUserCategories";
 
 export const CategoryModel = () => {
   const [open, setOpen] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
-  const { setCategories } = useUserContext();
+  const { setCategories, user } = useUserContext();
   const [formdata, setFormdata] = useState({
     name: "",
     type: "",
@@ -26,7 +27,7 @@ export const CategoryModel = () => {
     setShowPicker(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if ((formdata.emoji === "" || formdata.name === "", formdata.type === "")) {
       return Swal.fire({
@@ -36,6 +37,7 @@ export const CategoryModel = () => {
       });
     }
 
+    await AddCategories(formdata, user?.email);
     setCategories((prev) => [...prev, formdata]);
     setFormdata({ name: "", type: "", emoji: "💸" });
     setOpen(false);

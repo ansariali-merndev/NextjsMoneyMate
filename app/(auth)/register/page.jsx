@@ -7,6 +7,7 @@ import { FormEmail } from "@/components/reusable/FormEmail";
 import { FormHeading } from "@/components/reusable/FormHeading";
 import { FormName } from "@/components/reusable/FormName";
 import { FormPassword } from "@/components/reusable/FormPassword";
+import { useUserContext } from "@/context/UserContext";
 import { handlePostFetch } from "@/utils/constant";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -38,6 +39,7 @@ export default function Register() {
   const [otpModel, setOtpModel] = useState(false);
   const [email, setEmail] = useState("");
   const [resend, setResend] = useState(false);
+  const { setUser } = useUserContext();
   const [formdata, setFormdata] = useState({
     name: "",
     email: "",
@@ -84,6 +86,11 @@ export default function Register() {
     if (!res?.success) {
       return alert(res?.message || "Your Otp is wrong or expire");
     }
+    setUser({
+      name: res.data.name,
+      email: res.data.email,
+      isVerified: res.data.isVerified,
+    });
     router.push("/");
   };
 
