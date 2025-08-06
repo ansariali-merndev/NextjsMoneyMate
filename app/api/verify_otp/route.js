@@ -1,3 +1,4 @@
+import { SaveDefaultCategory } from "@/app/action/DefaultCategoryAction";
 import { connectDB } from "@/config/db";
 import { userDB } from "@/model/UserModel";
 import { handleRouteHandlerError } from "@/utils/constant";
@@ -25,12 +26,18 @@ export async function POST(request) {
     user.otpExpires = undefined;
 
     await user.save();
+    await SaveDefaultCategory(user._id, user.email)
 
     const token = generateToken(user._id, user.username, user.email);
 
     const response = NextResponse.json({
       success: true,
       message: "Email Verified Successfully",
+      data: {
+        email: user.email,
+        isVerified : user.isVerified,
+        name: user.name,
+      }
     });
 
     response.cookies.set("auth_token", token, {
