@@ -1,6 +1,6 @@
 # Next.js Project
 
-This is a basic Next.js project.
+This is a Maney Mate | ExpenseTrackerApplication Next.js project.
 
 ## How to Run
 
@@ -18,6 +18,7 @@ http://localhost:3000
 - Protected Routes
 - Completed with Hero section
 - Implement the side bar
+- Completed with dashboard Section
 
 ## Bug Fixes
 

@@ -6,7 +6,7 @@ export default function BaseLayout({ children }) {
       <aside className="hidden md:block">
         <Aside />
       </aside>
-      {children}
+      <div className="w-full">{children}</div>
     </section>
   );
 }
