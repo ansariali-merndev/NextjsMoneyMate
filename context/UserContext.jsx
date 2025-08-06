@@ -1,14 +1,13 @@
 "use client";
 
-import { getUserFinance } from "@/app/action/FinanceAction";
 import { getUserCategories, getUserDetail } from "@/app/action/GetUser";
 import { handlePostFetch } from "@/utils/constant";
 import { createContext, useContext, useEffect, useState } from "react";
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [totalIncome, setTotalIncome] = useState(40000);
-  const [totalExpense, setTotalExpense] = useState(16000);
+  const [totalIncome, setTotalIncome] = useState(0);
+  const [totalExpense, setTotalExpense] = useState(0);
   const [user, setUser] = useState({ name: "", email: "", isVerified: "" });
   const [categories, setCategories] = useState([]);
   const [incomeData, setIncomeData] = useState([]);
@@ -55,6 +54,24 @@ export const UserProvider = ({ children }) => {
       func();
     }
   }, [user.email]);
+
+  useEffect(() => {
+    if (expenseData.length > 0) {
+      const total = expenseData.reduce((acc, curr) => {
+        return acc + Number(curr.amount);
+      }, 0);
+      setTotalExpense(total);
+    }
+  }, [expenseData]);
+
+  useEffect(() => {
+    if (incomeData.length > 0) {
+      const total = incomeData.reduce((acc, curr) => {
+        return acc + Number(curr.amount);
+      }, 0);
+      setTotalIncome(total);
+    }
+  }, [incomeData]);
 
   const value = {
     totalIncome,
