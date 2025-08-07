@@ -2,9 +2,14 @@
 
 import { useUserContext } from "@/context/UserContext";
 import { FaMoneyBillWave, FaMoneyCheckAlt, FaPiggyBank } from "react-icons/fa";
+import { DashboardShimmerCard } from "../shimmer/DashboardShimmerCard";
 
 export const DashboardCard = () => {
-  const { totalIncome, totalExpense } = useUserContext();
+  const { totalIncome, totalExpense, isLoaded } = useUserContext();
+
+  if (!isLoaded) {
+    return <DashboardShimmerCard />;
+  }
 
   const util = [
     { label: "Total Income", value: totalIncome, icon: <FaMoneyBillWave /> },
@@ -17,7 +22,7 @@ export const DashboardCard = () => {
   ];
 
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 ">
+    <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {util.map((item, index) => (
         <Card item={item} key={index} />
       ))}
