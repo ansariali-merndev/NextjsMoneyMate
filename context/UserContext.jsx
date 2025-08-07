@@ -7,7 +7,7 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [auth, setAuth] = useState(false);
-  const { isLoaded, setIsLoaded } = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
   const [user, setUser] = useState({ name: "", email: "", isVerified: "" });
@@ -48,8 +48,8 @@ export const UserProvider = ({ children }) => {
       });
 
       if (res.success) {
-        setIncomeData(res?.data?.incomeData);
-        setExpenseData(res?.data?.expenseData);
+        setIncomeData(res?.data?.incomeData || []);
+        setExpenseData(res?.data?.expenseData || []);
       }
     };
 
@@ -59,7 +59,7 @@ export const UserProvider = ({ children }) => {
   }, [user.email, auth]);
 
   useEffect(() => {
-    if (expenseData.length > 0) {
+    if (Array.isArray(expenseData) && expenseData.length > 0) {
       const total = expenseData.reduce((acc, curr) => {
         return acc + Number(curr.amount);
       }, 0);
@@ -68,7 +68,7 @@ export const UserProvider = ({ children }) => {
   }, [expenseData, auth]);
 
   useEffect(() => {
-    if (incomeData.length > 0) {
+    if (Array.isArray(incomeData) && incomeData.length > 0) {
       const total = incomeData.reduce((acc, curr) => {
         return acc + Number(curr.amount);
       }, 0);
