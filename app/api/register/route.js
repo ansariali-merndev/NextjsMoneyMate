@@ -9,7 +9,7 @@ import { NextResponse } from "next/server";
 export async function POST(request) {
   await connectDB();
   const { name, email, password } = await request.json();
-  
+
   const errorResponse = NextResponse.json({
     success: false,
     message: "This user is already registered. Please login to continue",
