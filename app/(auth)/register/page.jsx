@@ -62,6 +62,7 @@ export default function Register() {
     if (!success) {
       setOpen(true);
       setMessage(error.issues[0].message);
+      return;
     }
 
     setIsPending(true);
